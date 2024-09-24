@@ -3,7 +3,7 @@ import 'package:fl_chart/fl_chart.dart';
 import '../widgets/performance_item_card.dart';
 
 class PortfolioPage extends StatelessWidget {
-  const PortfolioPage({Key? key}) : super(key: key);
+  const PortfolioPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +17,13 @@ class PortfolioPage extends StatelessWidget {
 
   Widget _buildPortfolioItem() {
     final data = AdPerformanceData(
-      nickName: 'Nick Name',
+      nickName: 'Name',
       postAt: 'Post At',
       isFollowing: false,
       performanceData: {
-        '주식': 20,
+        '주식': 30,
         '부동산': 40,
-        '예적금': 30,
+        '예적금': 10,
         '펀드': 10,
       },
       totalReturn: 2257.8,
@@ -81,18 +81,4 @@ class AdPerformanceData {
     required this.performanceData,
     required this.totalReturn,
   });
-}
-
-class _FollowButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: const Text('팔로우', style: TextStyle(color: Colors.white)),
-    );
-  }
 }

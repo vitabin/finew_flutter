@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/comment.dart';
-import '../widgets/feed.dart';
-import '../../domain/entities/feed.dart'; // 경로 수정
+import '../../domain/entities/feed.dart';
+import '../components/feed.dart';
 
-Post dummyFeed = Post(
-  id: '1',
-  createdAt: '2024-01-01',
-  updatedAt: '2024-01-01',
+Post dummyPost = Post(
+  id: 1,
+  createdAt: '2024-09-11',
+  updatedAt: '2024-09-09',
   userId: '1',
   userProfileImage: 'https://picsum.photos/250?image=1',
-  userNickName: 'Nick Name',
+  nickName: 'vitabin',
   comments: <Comment>[], // 빈 리스트를 명시적으로 변환
   userFollowStatus: false,
   userLikeStatus: false,
   bookmarkStatus: false,
-  title: '제목',
-  content: '본문',
-  category: '카테고리',
+  title: '이거 이렇게하는거 맞나요',
+  context: '가나다라마바사',
+  category: '질문',
 );
 
 class CommunityPage extends StatelessWidget {
@@ -33,7 +33,12 @@ class CommunityPage extends StatelessWidget {
   }
 
   Widget _buildFeedItem() {
-    return buildFeedItem(post: dummyFeed);
+    FeedBuilder builder = FeedBuilder();
+    builder.setFeed(dummyPost);
+    builder.setPost(dummyPost);
+    builder.buildPost();
+
+    return builder.build();
   }
 }
 
@@ -101,4 +106,3 @@ class CommunityPage extends StatelessWidget {
 //     return buildFeedItem(post: post);
 //   }
 // }
-

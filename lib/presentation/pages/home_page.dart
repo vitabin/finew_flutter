@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../config/themes/app_theme.dart';
 import 'community_page.dart';
 import 'portfolio_page.dart';
 
@@ -12,6 +13,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 1; // 0: 커뮤니티, 1: 홈, 2: 포트폴리오
+
+  Future<void> _refresh() async {
+    await Future.delayed(const Duration(seconds: 2));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,39 +40,41 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          // 검색 바
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: '키워드로는 내용 검색',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
+      body: RefreshIndicator(
+          onRefresh: _refresh,
+          child: Column(
+            children: [
+              // 검색 바
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: '키워드로는 내용 검색',
+                    prefixIcon: const Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          // 카테고리 섹션
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildCategoryButton('커뮤니티', 0),
-                _buildCategoryButton('홈', 1),
-                _buildCategoryButton('포트폴리오', 2),
-              ],
-            ),
-          ),
-          // 컨텐츠 영역
-          Expanded(
-            child: _buildContent(),
-          ),
-        ],
-      ),
+              // 카테고리 섹션
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _buildCategoryButton('커뮤니티', 0),
+                    _buildCategoryButton('홈', 1),
+                    _buildCategoryButton('포트폴리오', 2),
+                  ],
+                ),
+              ),
+              // 컨텐츠 영역
+              Expanded(
+                child: _buildContent(),
+              ),
+            ],
+          )),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: const Color(0xFFFFFFFF),
         type: BottomNavigationBarType.fixed,
@@ -99,6 +106,7 @@ class _HomePageState extends State<HomePage> {
           color: Colors.black,
           fontWeight:
               _currentIndex == index ? FontWeight.bold : FontWeight.normal,
+          fontSize: Config.fontSize['title'],
         ),
       ),
     );

@@ -1,16 +1,16 @@
 import 'comment.dart';
 
-abstract class Feed {
-  final String id;
-  final String createdAt;
-  final String updatedAt;
-  final String userId;
-  final String userProfileImage;
-  final String userNickName;
-  final List<Comment>? comments;
-  final bool userFollowStatus;
-  final bool userLikeStatus;
-  final bool bookmarkStatus;
+class Feed {
+  late final double id;
+  late final String createdAt;
+  late final String updatedAt;
+  late final String userId;
+  late final String userProfileImage;
+  late final String nickName;
+  late final List<Comment>? comments;
+  late final bool userFollowStatus;
+  late final bool userLikeStatus;
+  late final bool bookmarkStatus;
 
   Feed({
     required this.id,
@@ -18,7 +18,7 @@ abstract class Feed {
     required this.updatedAt,
     required this.userId,
     required this.userProfileImage,
-    required this.userNickName,
+    required this.nickName,
     this.comments,
     required this.userFollowStatus,
     required this.userLikeStatus,
@@ -27,23 +27,23 @@ abstract class Feed {
 }
 
 class Post extends Feed {
-  final String title;
-  final String content;
-  final String category;
+  late final String title;
+  late final String context;
+  late final String category;
 
   Post({
-    required String id,
+    required double id,
     required String createdAt,
     required String updatedAt,
     required String userId,
     required String userProfileImage,
-    required String userNickName,
+    required String nickName,
     List<Comment>? comments,
     required bool userFollowStatus,
     required bool userLikeStatus,
     required bool bookmarkStatus,
     required this.title,
-    required this.content,
+    required this.context,
     required this.category,
   }) : super(
           id: id,
@@ -51,47 +51,27 @@ class Post extends Feed {
           updatedAt: updatedAt,
           userId: userId,
           userProfileImage: userProfileImage,
-          userNickName: userNickName,
+          nickName: nickName,
           comments: comments,
           userFollowStatus: userFollowStatus,
           userLikeStatus: userLikeStatus,
           bookmarkStatus: bookmarkStatus,
         );
-
-  // JSON 데이터를 Post 객체로 변환하는 팩토리 메서드
-  factory Post.fromJson(Map<String, dynamic> json) {
-    return Post(
-      id: json['id'],
-      createdAt: json['createdAt'],
-      updatedAt: json['updatedAt'],
-      userId: json['userId'],
-      userProfileImage: json['userProfileImage'],
-      userNickName: json['userNickName'],
-      comments: [], // 실제로 comments를 어떻게 처리할지는 API 설계에 따름
-      userFollowStatus: json['userFollowStatus'],
-      userLikeStatus: json['userLikeStatus'],
-      bookmarkStatus: json['bookmarkStatus'],
-      title: json['title'],
-      content: json['content'],
-      category: json['category'],
-    );
-  }
 }
 
-
 class Portfolio extends Feed {
-  final String content;
-  final String userPostCount;
-  final String userCommentCount;
-  final String userLikeCount;
+  late final String content;
+  late final String userPostCount;
+  late final String userCommentCount;
+  late final String userLikeCount;
 
   Portfolio({
-    required String id,
+    required double id,
     required String createdAt,
     required String updatedAt,
     required String userId,
     required String userProfileImage,
-    required String userNickName,
+    required String nickName,
     List<Comment>? comments,
     required bool userFollowStatus,
     required bool userLikeStatus,
@@ -106,7 +86,7 @@ class Portfolio extends Feed {
           updatedAt: updatedAt,
           userId: userId,
           userProfileImage: userProfileImage,
-          userNickName: userNickName,
+          nickName: nickName,
           comments: comments,
           userFollowStatus: userFollowStatus,
           userLikeStatus: userLikeStatus,
