@@ -1,12 +1,11 @@
 class Comment {
-  final String id;
+  final double id;
   final String content;
   final String createdAt;
   final String updatedAt;
   final String userId;
-  final String userName;
   final String userProfileImage;
-  final String userNickName;
+  final String nickName;
 
   Comment({
     required this.id,
@@ -14,8 +13,7 @@ class Comment {
     required this.createdAt,
     required this.updatedAt,
     required this.userId,
-    required this.userName,
     required this.userProfileImage,
-    required this.userNickName,
+    required this.nickName,
   });
 }

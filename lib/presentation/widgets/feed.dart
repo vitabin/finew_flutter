@@ -1,9 +1,11 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../config/themes/app_theme.dart';
 
-Widget avatar(String? imgUrl) {
-  if (imgUrl != null) {
+Widget avatar(String imgUrl) {
+  if (imgUrl == '') {
     return Container(
       width: Config.thumnailSize['width'],
       height: Config.thumnailSize['height'],
@@ -17,8 +19,9 @@ Widget avatar(String? imgUrl) {
   }
 
   return Container(
-      width: Config.thumnailSize['width'],
-      height: Config.thumnailSize['height'],
-      decoration: const BoxDecoration(shape: BoxShape.circle),
-      child: CachedNetworkImage(imageUrl: imgUrl!));
+    width: Config.thumnailSize['width'],
+    height: Config.thumnailSize['height'],
+    decoration: const BoxDecoration(shape: BoxShape.circle),
+    child: CachedNetworkImage(imageUrl: imgUrl),
+  );
 }

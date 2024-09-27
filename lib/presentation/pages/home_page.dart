@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../config/themes/app_theme.dart';
+import '../../core/utils/helpers.dart';
 import 'community_page.dart';
 import 'portfolio_page.dart';
 
@@ -100,14 +101,12 @@ class _HomePageState extends State<HomePage> {
           _currentIndex = index;
         });
       },
-      child: Text(
+      child: Utils.buildText(
         text,
-        style: TextStyle(
-          color: Colors.black,
-          fontWeight:
-              _currentIndex == index ? FontWeight.bold : FontWeight.normal,
-          fontSize: Config.fontSize['title'],
-        ),
+        textWeight:
+            _currentIndex == index ? FontWeight.bold : FontWeight.normal,
+        textColor: _currentIndex == index ? Colors.black : Colors.grey,
+        textSize: Config.fontSize['title'],
       ),
     );
   }

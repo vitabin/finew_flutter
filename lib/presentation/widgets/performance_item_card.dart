@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../components/button.dart';
+import '../components/buttons.dart';
 
 class PerformanceItemCard extends StatelessWidget {
   final String nickName;

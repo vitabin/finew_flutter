@@ -2,11 +2,12 @@
 
 import 'package:flutter/material.dart';
 import '../../config/themes/app_theme.dart';
+import '../../core/utils/helpers.dart';
 import '../../domain/entities/feed.dart';
 import '../widgets/button.dart';
 import '../widgets/feed.dart';
 import '../../domain/entities/comment.dart';
-import 'button.dart';
+import 'buttons.dart';
 
 class FeedBuilder {
   late final Container content;
@@ -42,37 +43,57 @@ class FeedBuilder {
     category = post.category;
   }
 
+  Widget setHeader() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        avatar(userProfileImage),
+        const SizedBox(width: 10),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Utils.buildText(
+              nickName,
+              textSize: Config.fontSize['context'],
+            ),
+            Utils.buildText(
+              createdAt,
+              textColor: Colors.grey[600],
+            ),
+          ],
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        const FollowButton(),
+      ],
+    );
+  }
+
   void buildPost() {
     if (title == null || context == null || category == null) {
       Exception();
     }
 
     content = Container(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '[${category!}] ${title!}',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: Config.fontSize['title']!,
-              ),
-            ),
-            const SizedBox(height: 5),
-            Text(
-              context!,
-              style: TextStyle(fontSize: Config.fontSize['context']),
-            ),
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Utils.buildText(
+            '[${category!}] ${title!}',
+            textWeight: FontWeight.bold,
+            textSize: Config.fontSize['title'],
+          ),
+          const SizedBox(height: 5),
+          Utils.buildText(context!, textSize: Config.fontSize['context']),
+        ],
       ),
     );
   }
 
   Widget build() {
     return Container(
+      height: 300,
       margin: EdgeInsets.symmetric(
         vertical: Config.feedMargin['vertical']!,
         horizontal: Config.feedMargin['horizontal']!,
@@ -94,38 +115,14 @@ class FeedBuilder {
         children: [
           Padding(
             padding: const EdgeInsets.all(10),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                avatar(userProfileImage),
-                const SizedBox(width: 12),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      nickName,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      createdAt,
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 12,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                  ],
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                const FollowButton(),
-              ],
+            child: setHeader(),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: content,
             ),
           ),
-          content,
           feedInteractionBar(),
         ],
       ),
