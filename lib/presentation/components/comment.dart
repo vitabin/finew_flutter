@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import '../../core/utils/helpers.dart';
 import '../../domain/entities/comment.dart';

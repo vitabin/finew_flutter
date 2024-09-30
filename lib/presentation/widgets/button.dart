@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../domain/entities/comment.dart';
-import '../components/comment.dart';
+import '../../config/themes/app_theme.dart';
 import '../icons/icons.dart';
 import '../../core/utils/helpers.dart';
 import '../components/buttons.dart';
@@ -127,6 +126,10 @@ class CommentButtonState extends State<CommentButton> {
   OverlayEntry? overlayEntry;
   double overlayHeight = 0.7; // 초기 오버레이 높이 비율
   double dragOffset = 0.0; // 드래그 이동 거리
+  double maxOffset = 300.0;
+  final TextEditingController _commentController =
+      TextEditingController(); // 텍스트 컨트롤러 추가
+  final FocusNode _focusNode = FocusNode();
 
   // 오버레이 항목을 생성하는 함수
   OverlayEntry _createOverlayEntry(BuildContext context) {
@@ -135,61 +138,125 @@ class CommentButtonState extends State<CommentButton> {
     double screenHeight = screenSize.height;
 
     return OverlayEntry(
-      builder: (context) => Positioned(
-        top: screenHeight * (1 - overlayHeight), // 오버레이의 위치
-        child: GestureDetector(
-          onVerticalDragUpdate: (details) {
-            setState(() {
-              overlayHeight -= details.delta.dy; // 드래그에 따른 높이 조정
-              if (dragOffset > 100) {
-                overlayEntry?.remove();
-                overlayEntry = null;
+      builder: (context) => Stack(
+        children: [
+          Container(
+            color: Colors.transparent, // 투명한 배경
+            width: screenWidth,
+            height: screenHeight,
+          ),
+          Positioned(
+            top: screenHeight * (1 - overlayHeight) +
+                dragOffset, // 드래그 오프셋을 고려하여 위치 업데이트
+            child: GestureDetector(
+              onVerticalDragEnd: (details) {
                 dragOffset = 0.0; // 드래그 초기화
-              } else {
-                setState(() {
-                  // 임계점에 도달하지 않았을 경우 초기화
-                  dragOffset = 0.0;
-                });
-              }
-            });
-          },
-          child: Material(
-            color: Colors.transparent,
-            child: Container(
-              width: screenWidth,
-              height: screenHeight * overlayHeight,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 10,
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Container(
-                      width: screenWidth * 0.3,
-                      height: 4.5,
-                      decoration: const BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                overlayHeight = 0.7;
+                overlayEntry?.markNeedsBuild();
+              },
+              onVerticalDragUpdate: (details) {
+                if (details.delta.dy > 0) {
+                  dragOffset += details.delta.dy; // 드래그에 따른 높이 조정
+                }
+                if (dragOffset > maxOffset) {
+                  overlayEntry?.remove();
+                  overlayEntry = null;
+                  dragOffset = 0.0; // 드래그 초기화
+                  overlayHeight = 0.7;
+                  _commentController.clear(); // 입력 필드 초기화
+                }
+                overlayEntry?.markNeedsBuild(); // 오버레이를 다시 그리도록 요청
+              },
+              child: Container(
+                width: screenWidth,
+                height: screenHeight * overlayHeight,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Container(
+                        width: screenWidth * 0.3,
+                        height: 5,
+                        decoration: const BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
                       ),
                     ),
-                  ),
-                  const CommentPage(),
-                ],
+                    const CommentPage(),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
+          Positioned(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+            child: Material(
+              child: Container(
+                width: screenWidth,
+                height: 70,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10,
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 20,
+                    horizontal: 10,
+                  ),
+                  child: TextField(
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400,
+                      fontSize: Config.fontSize['comment']!,
+                    ),
+                    maxLines: 10,
+                    keyboardType: TextInputType.multiline,
+                    controller: _commentController, // 텍스트 컨트롤러 설정
+                    focusNode: _focusNode, // 포커스 노드 설정
+                    // TextField 사용
+                    decoration: const InputDecoration(
+                      hintText: '댓글을 입력하세요.', // 입력 힌트
+                      border: InputBorder.none, // 테두리 없음
+                    ),
+                    onTap: () {
+                      FocusManager.instance.primaryFocus?.requestFocus();
+                    },
+                    onTapOutside: (event) {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _commentController.dispose(); // 컨트롤러 해제
+    _focusNode.dispose(); // 포커스 노드 해제
+    super.dispose();
   }
 
   @override
@@ -201,7 +268,7 @@ class CommentButtonState extends State<CommentButton> {
           overlayEntry = null;
         } else {
           overlayEntry = _createOverlayEntry(context);
-          Overlay.of(context)?.insert(overlayEntry!);
+          Overlay.of(context).insert(overlayEntry!);
         }
       },
       child: Row(

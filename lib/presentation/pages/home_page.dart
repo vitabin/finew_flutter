@@ -22,11 +22,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFFFF),
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         backgroundColor: Colors.white,
-        elevation: 0,
-        automaticallyImplyLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -42,40 +41,47 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: RefreshIndicator(
-          onRefresh: _refresh,
-          child: Column(
-            children: [
-              // 검색 바
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: '키워드로는 내용 검색',
-                    prefixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
+        onRefresh: _refresh,
+        child: Column(
+          children: [
+            // 검색 바
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: '키워드로는 내용 검색',
+                  prefixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
               ),
-              // 카테고리 섹션
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    _buildCategoryButton('커뮤니티', 0),
-                    _buildCategoryButton('홈', 1),
-                    _buildCategoryButton('포트폴리오', 2),
-                  ],
-                ),
+            ),
+            // 카테고리 섹션
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _buildCategoryButton('커뮤니티', 0),
+                      _buildCategoryButton('홈', 1),
+                      _buildCategoryButton('포트폴리오', 2),
+                    ],
+                  ),
+                  const DecoratedBox(
+                      decoration: BoxDecoration(color: Colors.black)),
+                ],
               ),
-              // 컨텐츠 영역
-              Expanded(
-                child: _buildContent(),
-              ),
-            ],
-          )),
+            ),
+            // 컨텐츠 영역
+            Expanded(
+              child: _buildContent(),
+            ),
+          ],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: const Color(0xFFFFFFFF),
         type: BottomNavigationBarType.fixed,
