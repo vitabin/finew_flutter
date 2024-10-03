@@ -6,7 +6,8 @@ import '../components/comment.dart';
 List<Comment> comment = [
   Comment(
     id: 1,
-    content: 'fksldjflasjfdoasjflasfndlsfjdslofjdsafjasdf',
+    content:
+        'fksldjflasjfdoasjflasfndlsfjdslofjdsafjasdfasdfasdfasdfasdfsdafsadzxcvcxzfsdafsadvxczvasffsa',
     createdAt: '2024-09-11',
     updatedAt: '2024-09-09',
     userId: '1',

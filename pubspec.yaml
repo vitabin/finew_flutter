@@ -37,6 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.8
   fl_chart: ^0.69.0
   cached_network_image: ^3.3.1
+  carousel_slider: ^5.0.0
+  smooth_page_indicator: ^1.2.0+3
+  dots_indicator: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -100,3 +103,6 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+  assets:
+    - assets/img/etf.png

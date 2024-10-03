@@ -42,25 +42,46 @@ class CommentBuilder {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           avatar(userProfileImage),
+          const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  const SizedBox(width: 10),
-                  Utils.buildText(nickName),
+                  DefaultTextStyle(
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                    ),
+                    child: Text(nickName),
+                  ),
                   const SizedBox(width: 5),
-                  Utils.buildText(createdAt),
+                  DefaultTextStyle(
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.grey,
+                    ),
+                    child: Text(createdAt),
+                  ),
                 ],
               ),
               const SizedBox(height: 5),
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 10,
+              SizedBox(
+                width: screenSize.width - 100,
+                child: DefaultTextStyle(
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
                   ),
-                  Utils.buildText(content),
-                ],
+                  child: Text(
+                    content,
+                    softWrap: true, // 자동 줄바꿈 설정
+                    overflow: TextOverflow.clip, // 넘친 텍스트는 잘림
+                  ),
+                ),
               ),
             ],
           ),

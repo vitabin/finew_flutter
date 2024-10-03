@@ -1,7 +1,14 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../config/themes/app_theme.dart';
 import '../../core/utils/helpers.dart';
+import '../../data/models/Top_keyword.dart';
+import '../components/top_keyword.dart';
+import '../controllers/home_controller.dart';
 import 'community_page.dart';
+import 'dictionary_page.dart';
 import 'portfolio_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,6 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 1; // 0: 커뮤니티, 1: 홈, 2: 포트폴리오
+  int _pageIdx = 0;
 
   Future<void> _refresh() async {
     await Future.delayed(const Duration(seconds: 2));
@@ -71,13 +79,14 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   const DecoratedBox(
-                      decoration: BoxDecoration(color: Colors.black)),
+                    decoration: BoxDecoration(color: Colors.black),
+                  ),
                 ],
               ),
             ),
             // 컨텐츠 영역
             Expanded(
-              child: _buildContent(),
+              child: _buildContent(context),
             ),
           ],
         ),
@@ -117,159 +126,104 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(BuildContext context) {
     switch (_currentIndex) {
       case 0:
         return const CommunityPage();
       case 1:
-        return _buildHomeContent();
+        return _buildHomeContent(context);
       case 2:
         return const PortfolioPage();
       default:
-        return _buildHomeContent();
+        return _buildHomeContent(context);
     }
   }
 
-  Widget _buildHomeContent() {
-    return ListView(
-      children: [
-        // ETF 섹션
-        Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('가장 많이 검색한 용어',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.all(15),
-                      color: Colors.blue,
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('ETF',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold)),
-                          Text('상장지수펀드(Exchange Traded Fund)의 약자로...',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12)),
-                        ],
+  Widget _buildHomeContent(BuildContext context) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "가장 많이 검색한 용어",
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const DictionaryPage(),
                       ),
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
-        // 추천 도서 섹션
-        Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10, top: 30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('추천 도서',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      color: Colors.blue,
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('추천 도서',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold)),
-                          Text('추천 도서 소개 및 설명...',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12)),
-                        ],
+                    );
+                  },
+                  child: const Row(
+                    children: [
+                      Text(
+                        '더보기',
+                        style: TextStyle(fontSize: 15, color: Colors.black),
                       ),
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
-        // 가장 많이본 뉴스 섹션
-        Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10, top: 30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('가장 많이본 뉴스',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      color: Colors.blue,
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('가장 많이본 뉴스',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold)),
-                          Text('가장 많이본 뉴스 소개 및 설명...',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12)),
-                        ],
+                      Icon(
+                        Icons.arrow_circle_right_outlined,
+                        color: Colors.black,
                       ),
-                    ),
-                  )
-                ],
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            //let's build our caroussel
+            CarouselSlider.builder(
+              itemCount: TopKeywordData.testData.length,
+              itemBuilder: (context, index, id) =>
+                  TopKeywordCard(TopKeywordData.testData[index]),
+              options: CarouselOptions(
+                height: 200,
+                enableInfiniteScroll: false,
+                enlargeCenterPage: true,
+                autoPlay: true,
+                autoPlayInterval: const Duration(seconds: 5),
+                initialPage: _pageIdx,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    _pageIdx = index;
+                  });
+                },
+                // clipBehavior: Clip.antiAliasWithSaveLayer
               ),
-            ],
-          ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 30,
+                ),
+                AnimatedSmoothIndicator(
+                  activeIndex: _pageIdx,
+                  count: TopKeywordData.testData.length,
+                  effect: const ExpandingDotsEffect(
+                    dotWidth: 10,
+                    dotHeight: 10,
+                    activeDotColor: Colors.blue,
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
-        // 시황 분석 섹션
-        Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10, top: 30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('시황 분석',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      color: Colors.blue,
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('시황 분석',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold)),
-                          Text('시황 분석 소개 및 설명...',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12)),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

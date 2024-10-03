@@ -218,8 +218,8 @@ class CommentButtonState extends State<CommentButton> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 20,
-                    horizontal: 10,
+                    vertical: 10,
+                    horizontal: 30,
                   ),
                   child: TextField(
                     style: TextStyle(
