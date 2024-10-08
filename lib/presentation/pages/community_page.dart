@@ -15,7 +15,8 @@ Post dummyPost = Post(
   userLikeStatus: false,
   bookmarkStatus: false,
   title: '이거 이렇게하는거 맞나요',
-  context: '가나다라마바사',
+  context:
+      '가나다라마바사asdffasdfxzcvcxzvasfasdfcvzcxvadfhadgfasfvxcb cnsfgsadfvsdbsdgasdfvs adfasdf savcnxz,mvnfddsjoipafmavsfpjospifjqwlnfxcz;vaopfidnfmsnvapdighso[fndfmqnwdfidshjvzoxjvlfasnfdsapfhdslkfj sdakljfjsadopfjsd]ncxvm,xnpofasojfwdmfnwdpofnvkmczxnvpoafguyhwquoirwefknmfgvbipadfghfpowdjrfqwklfnas;kjvxzchopcvsdjafdlmvn  xzcklvzxcgbcvipasdhfjlkasdfjmvajkldfghadpsfasd',
   category: '질문',
 );
 
@@ -29,11 +30,29 @@ class CommunityPage extends StatefulWidget {
 class _CommunityPageState extends State<CommunityPage> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 4,
-      itemBuilder: (context, index) {
-        return _buildFeedItem();
-      },
+    return Scaffold(
+      appBar: AppBar(
+        scrolledUnderElevation: 0,
+        backgroundColor: Colors.white,
+        title: const Text(
+          '커뮤니티',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+        ),
+        child: ListView.builder(
+          itemCount: 4,
+          itemBuilder: (context, index) {
+            return _buildFeedItem();
+          },
+        ),
+      ),
     );
   }
 
@@ -41,7 +60,7 @@ class _CommunityPageState extends State<CommunityPage> {
     FeedBuilder builder = FeedBuilder();
     builder.setFeed(dummyPost);
     builder.setPost(dummyPost);
-    builder.buildPost();
+    builder.build();
 
     return builder.build();
   }

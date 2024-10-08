@@ -6,31 +6,41 @@ import '../components/buttons.dart';
 import '../pages/comment_page.dart';
 
 Widget feedInteractionBar() {
-  return const Padding(
-    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        LikeButton(),
-        CommentButton(),
-        BookmarkButton(),
-      ],
-    ),
+  return const Row(
+    mainAxisAlignment: MainAxisAlignment.spaceAround,
+    children: [
+      LikeButton(),
+      CommentButton(),
+      BookmarkButton(),
+    ],
   );
 }
 
-Widget actionButton(
-  IconData icon,
-  String label, {
-  double? iconSize,
-  double? fontSize,
-}) {
-  return Row(
-    children: [
-      Icon(icon, size: iconSize),
-      const SizedBox(width: 5),
-      Utils.buildText(label),
-    ],
+Widget moreButton(BuildContext context, Widget page) {
+  return TextButton(
+    onPressed: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => page,
+        ),
+      );
+    },
+    child: const Row(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5),
+          child: Text(
+            '더보기',
+            style: TextStyle(fontSize: 15, color: Colors.white70),
+          ),
+        ),
+        Icon(
+          Icons.arrow_circle_right_outlined,
+          color: Colors.white70,
+        ),
+      ],
+    ),
   );
 }
 

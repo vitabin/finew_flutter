@@ -18,40 +18,13 @@ class _DictionaryPageState extends State<DictionaryPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(18.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'widget.data.title!',
-              style: TextStyle(
-                fontSize: 26.0,
-                fontWeight: FontWeight.bold,
-              ),
+        child: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/img/book.png'),
+              fit: BoxFit.fill,
             ),
-            const SizedBox(
-              height: 8.0,
-            ),
-            const Text(
-              'widget.data.author!',
-              style: TextStyle(
-                color: Colors.black54,
-              ),
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            Hero(
-              tag: "",
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-            ),
-            const SizedBox(
-              height: 30.0,
-            ),
-            const Text('widget.data.content!'),
-          ],
+          ),
         ),
       ),
     );

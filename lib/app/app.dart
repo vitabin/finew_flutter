@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../presentation/pages/home_page.dart';
 
 class MyApp extends StatelessWidget {
@@ -6,6 +7,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(
+      context,
+      designSize: MediaQuery.of(context).size, // 디자인 해상도
+      minTextAdapt: true,
+    );
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(

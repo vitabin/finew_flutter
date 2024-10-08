@@ -10,7 +10,6 @@ import '../../domain/entities/comment.dart';
 import 'buttons.dart';
 
 class FeedBuilder {
-  late final Container content;
   late final double id;
   late final String nickName;
   late final String createdAt;
@@ -70,61 +69,63 @@ class FeedBuilder {
     );
   }
 
-  void buildPost() {
+  Widget build() {
     if (title == null || context == null || category == null) {
       Exception();
     }
 
-    content = Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Utils.buildText(
-            '[${category!}] ${title!}',
-            textWeight: FontWeight.bold,
-            textSize: Config.fontSize['title'],
-          ),
-          const SizedBox(height: 5),
-          Utils.buildText(context!, textSize: Config.fontSize['context']),
-        ],
-      ),
-    );
-  }
-
-  Widget build() {
     return Container(
-      height: 300,
-      margin: EdgeInsets.symmetric(
-        vertical: Config.feedMargin['vertical']!,
-        horizontal: Config.feedMargin['horizontal']!,
+      height: 290,
+      margin: const EdgeInsets.symmetric(
+        vertical: 1,
+        horizontal: 1,
       ),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(5),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 3,
-            offset: const Offset(0, 1),
+            offset: const Offset(0, 3),
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: setHeader(),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: content,
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            setHeader(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              child: Text(
+                '[${category!}] ${title!}',
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                ),
+              ),
             ),
-          ),
-          feedInteractionBar(),
-        ],
+            Expanded(
+              child: SizedBox(
+                child: Text(
+                  context!,
+                  softWrap: true, // 자동 줄바꿈 설정
+                  overflow: TextOverflow.ellipsis, // 넘친 텍스트는 잘림
+                  maxLines: 7,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+            feedInteractionBar(),
+          ],
+        ),
       ),
     );
   }
