@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../data/models/books.dart';
 
 class RecommendBook extends StatefulWidget {
-  RecommendBook(this.data, {super.key});
+  const RecommendBook(this.data, {super.key});
   final BookData data;
 
   @override
@@ -22,6 +22,7 @@ class _RecommendBookState extends State<RecommendBook> {
           child: DecoratedBox(
             decoration: BoxDecoration(
               image: DecorationImage(
+                // image: NetworkImage('assets/img/book.png'), TODO
                 image: AssetImage('assets/img/book.png'),
                 fit: BoxFit.fill,
               ),

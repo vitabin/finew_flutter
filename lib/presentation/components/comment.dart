@@ -33,8 +33,8 @@ class CommentBuilder {
       decoration: const BoxDecoration(
         color: Colors.white,
         border: Border(
-          top: BorderSide(color: Color(0x9395A0)),
-          bottom: BorderSide(color: Color(0x9395A0)),
+          top: BorderSide(color: Color(0x009395a0)),
+          bottom: BorderSide(color: Color(0x009395a0)),
         ),
       ),
       child: Row(

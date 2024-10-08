@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DictionaryPage extends StatefulWidget {
-  const DictionaryPage({Key? key}) : super(key: key);
+  const DictionaryPage({super.key});
 
   @override
   _DictionaryPageState createState() => _DictionaryPageState();

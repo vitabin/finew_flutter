@@ -32,7 +32,10 @@ Widget moreButton(BuildContext context, Widget page) {
           padding: EdgeInsets.symmetric(horizontal: 5),
           child: Text(
             '더보기',
-            style: TextStyle(fontSize: 15, color: Colors.white70),
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.white,
+            ),
           ),
         ),
         Icon(

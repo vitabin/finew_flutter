@@ -4,7 +4,7 @@ import '../../config/themes/app_theme.dart';
 
 class Utils {
   static Widget buildText(String text,
-      {double? textSize, FontWeight? textWeight, Color? textColor}) {
+      {double? textSize, FontWeight? textWeight, Color? textColor,}) {
     return Text(
       text,
       style: TextStyle(

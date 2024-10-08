@@ -11,14 +11,14 @@ class PerformanceItemCard extends StatelessWidget {
   final Widget chart;
 
   const PerformanceItemCard({
-    Key? key,
+    super.key,
     required this.nickName,
     required this.postAt,
     required this.isFollowing,
     required this.performanceData,
     required this.totalReturn,
     required this.chart,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class PerformanceItemCard extends StatelessWidget {
             const SizedBox(height: 16),
             Text('총 수익률 $totalReturn%',
                 style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
             const SizedBox(height: 16),
             buildActionButtons(),
           ],
@@ -69,9 +69,9 @@ class PerformanceItemCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text('Nick Name',
-                style: TextStyle(fontWeight: FontWeight.bold)),
+                style: TextStyle(fontWeight: FontWeight.bold),),
             Text('Post At',
-                style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+                style: TextStyle(color: Colors.grey[600], fontSize: 12),),
           ],
         ),
         const SizedBox(width: 10),

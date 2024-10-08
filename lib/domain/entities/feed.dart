@@ -32,31 +32,20 @@ class Post extends Feed {
   late final String category;
 
   Post({
-    required double id,
-    required String createdAt,
-    required String updatedAt,
-    required String userId,
-    required String userProfileImage,
-    required String nickName,
-    List<Comment>? comments,
-    required bool userFollowStatus,
-    required bool userLikeStatus,
-    required bool bookmarkStatus,
+    required super.id,
+    required super.createdAt,
+    required super.updatedAt,
+    required super.userId,
+    required super.userProfileImage,
+    required super.nickName,
+    super.comments,
+    required super.userFollowStatus,
+    required super.userLikeStatus,
+    required super.bookmarkStatus,
     required this.title,
     required this.context,
     required this.category,
-  }) : super(
-          id: id,
-          createdAt: createdAt,
-          updatedAt: updatedAt,
-          userId: userId,
-          userProfileImage: userProfileImage,
-          nickName: nickName,
-          comments: comments,
-          userFollowStatus: userFollowStatus,
-          userLikeStatus: userLikeStatus,
-          bookmarkStatus: bookmarkStatus,
-        );
+  });
 }
 
 class Portfolio extends Feed {
@@ -66,30 +55,19 @@ class Portfolio extends Feed {
   late final String userLikeCount;
 
   Portfolio({
-    required double id,
-    required String createdAt,
-    required String updatedAt,
-    required String userId,
-    required String userProfileImage,
-    required String nickName,
-    List<Comment>? comments,
-    required bool userFollowStatus,
-    required bool userLikeStatus,
-    required bool bookmarkStatus,
+    required super.id,
+    required super.createdAt,
+    required super.updatedAt,
+    required super.userId,
+    required super.userProfileImage,
+    required super.nickName,
+    super.comments,
+    required super.userFollowStatus,
+    required super.userLikeStatus,
+    required super.bookmarkStatus,
     required this.content,
     required this.userPostCount,
     required this.userCommentCount,
     required this.userLikeCount,
-  }) : super(
-          id: id,
-          createdAt: createdAt,
-          updatedAt: updatedAt,
-          userId: userId,
-          userProfileImage: userProfileImage,
-          nickName: nickName,
-          comments: comments,
-          userFollowStatus: userFollowStatus,
-          userLikeStatus: userLikeStatus,
-          bookmarkStatus: bookmarkStatus,
-        );
+  });
 }
