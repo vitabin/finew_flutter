@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/app.dart';
 import '../../config/themes/app_theme.dart';
 import '../../core/utils/helpers.dart';
@@ -26,7 +27,22 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 1; // 0: 커뮤니티, 1: 홈, 2: 포트폴리오
 
   Future<void> _refresh() async {
+    // TODO 새로고침 기능 추가
     await Future.delayed(const Duration(seconds: 2));
+  }
+
+  // 테마 상태를 저장하는 함수
+  void _toggleTheme() async {
+    setState(() {
+      MyApp.themeNotifier.value = MyApp.themeNotifier.value == ThemeMode.light
+          ? ThemeMode.dark
+          : ThemeMode.light;
+    });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(
+      'isDarkMode',
+      MyApp.themeNotifier.value == ThemeMode.dark,
+    );
   }
 
   @override
@@ -57,10 +73,7 @@ class _HomePageState extends State<HomePage> {
                   Icons.menu,
                 ),
                 onPressed: () {
-                  MyApp.themeNotifier.value =
-                      MyApp.themeNotifier.value == ThemeMode.light
-                          ? ThemeMode.dark
-                          : ThemeMode.light;
+                  _toggleTheme();
                 },
               ),
             ],
@@ -77,7 +90,7 @@ class _HomePageState extends State<HomePage> {
               child: TextField(
                 decoration: InputDecoration(
                   hintText: '키워드또는 내용으로 검색',
-                  hintStyle: const TextStyle(),
+                  hintStyle: Theme.of(context).textTheme.bodyMedium,
                   prefixIcon: const Icon(
                     Icons.search,
                   ),
@@ -185,8 +198,8 @@ class _HomePageState extends State<HomePage> {
                 child: GridView(
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 19.w,
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 12.w,
                     mainAxisExtent: 125.w,
                     mainAxisSpacing: 19.w,
                   ),
@@ -195,13 +208,13 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     HomeCategoryGrid(
                       onTap: () {},
-                      title: "Calming Sounds",
+                      title: "커뮤니티",
                       gradientStartColor: const Color(0xff13DEA0),
                       gradientEndColor: const Color(0xff06B782),
                     ),
                     HomeCategoryGrid(
                       onTap: () {},
-                      title: "Insomnia",
+                      title: "용어사전",
                       gradientStartColor: const Color(0xffFC67A7),
                       gradientEndColor: const Color(0xffF6815B),
                       icon: SvgAsset(
@@ -212,13 +225,31 @@ class _HomePageState extends State<HomePage> {
                     ),
                     HomeCategoryGrid(
                       onTap: () {},
-                      title: "For Children",
+                      title: "퀴즈",
+                      icon: SvgAsset(
+                        assetName: AssetName.tape,
+                        height: 24.w,
+                        width: 24.w,
+                      ),
+                    ),
+                    HomeCategoryGrid(
+                      onTap: () {},
+                      title: "뉴스",
                       gradientStartColor: const Color(0xffFFD541),
                       gradientEndColor: const Color(0xffF0B31A),
                     ),
                     HomeCategoryGrid(
                       onTap: () {},
-                      title: "Tips For Sleeping",
+                      title: "시황분석",
+                      icon: SvgAsset(
+                        assetName: AssetName.tape,
+                        height: 24.w,
+                        width: 24.w,
+                      ),
+                    ),
+                    HomeCategoryGrid(
+                      onTap: () {},
+                      title: "추천도서",
                       icon: SvgAsset(
                         assetName: AssetName.tape,
                         height: 24.w,

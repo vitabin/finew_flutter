@@ -26,21 +26,18 @@ Widget moreButton(BuildContext context, Widget page) {
         ),
       );
     },
-    child: const Row(
+    child: Row(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 5),
           child: Text(
             '더보기',
-            style: TextStyle(
-              fontSize: 15,
-              color: Colors.white,
-            ),
+            style: Theme.of(context).textTheme.displayMedium,
           ),
         ),
         Icon(
           Icons.arrow_circle_right_outlined,
-          color: Colors.white70,
+          color: Theme.of(context).iconTheme.color,
         ),
       ],
     ),

@@ -18,6 +18,7 @@ class _TopKeywordCardState extends State<TopKeywordCard> {
     return Material(
       borderRadius: BorderRadius.circular(30),
       child: InkWell(
+        borderRadius: BorderRadius.circular(30),
         onTap: () {
           // TODO
         },
@@ -34,22 +35,27 @@ class _TopKeywordCardState extends State<TopKeywordCard> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30.0),
               gradient: const LinearGradient(
-                colors: [Colors.transparent, Colors.black],
+                colors: [Colors.transparent, Color.fromARGB(255, 38, 36, 36)],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
             ),
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
+              padding: EdgeInsets.only(
+                left: 16.w,
+                right: 16.w,
+                top: 60.h,
+                bottom: 5.h,
+              ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     data.word,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 18.r,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -65,7 +71,8 @@ class _TopKeywordCardState extends State<TopKeywordCard> {
                         fontSize: 15.sp,
                         fontWeight: FontWeight.w400,
                       ),
-                      overflow: TextOverflow.fade,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
                     ),
                   ),
                   SizedBox(
@@ -127,10 +134,10 @@ class _TopKeywordCardState extends State<TopKeywordCard> {
             AnimatedSmoothIndicator(
               activeIndex: _topKeywordIdx,
               count: TopKeywordData.testData.length,
-              effect: const ExpandingDotsEffect(
+              effect: ExpandingDotsEffect(
                 dotWidth: 8,
                 dotHeight: 8,
-                dotColor: Colors.white70,
+                dotColor: Theme.of(context).disabledColor,
                 activeDotColor: Colors.blue,
               ),
             ),

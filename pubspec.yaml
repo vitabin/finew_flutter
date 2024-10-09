@@ -42,6 +42,7 @@ dependencies:
   dots_indicator: ^3.0.0
   flutter_screenutil: ^5.3.1
   flutter_svg: ^0.23.0+1
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:
