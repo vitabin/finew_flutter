@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/app.dart';
-import '../../config/themes/app_theme.dart';
-import '../../core/utils/helpers.dart';
+import '../components/custom_bottom_nav_bar_dash.dart';
 import '../components/home_category_grid.dart';
 import '../components/top_keyword.dart';
 import '../icons/icons.dart';
 import '../widgets/svg_asset.dart';
 import '../widgets/button.dart';
-import 'community_page.dart';
 import 'dictionary_page.dart';
-import 'portfolio_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'test_page.dart';
@@ -102,64 +99,23 @@ class _HomePageState extends State<HomePage> {
             ),
             // 컨텐츠 영역
             Expanded(
-              child: _buildContent(context),
+              child: _buildHomeContent(context),
             ),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: '홈'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book_outlined),
-            label: '추천도서',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.article_outlined),
-            label: '뉴스',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.edit_outlined),
-            label: '시황분석',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: 'My Page',
-          ),
+      bottomNavigationBar: CustomBottomNavBarDash(
+        onChange: (index) {
+          setState(() {});
+        },
+        defaultSelectedIndex: 0,
+        svgName: const [
+          AssetName.home,
+          AssetName.user,
+          AssetName.menu,
         ],
       ),
     );
-  }
-
-  Widget _buildCategoryButton(String text, int index) {
-    return TextButton(
-      onPressed: () {
-        setState(() {
-          _currentIndex = index;
-        });
-      },
-      child: Utils.buildText(
-        text,
-        textWeight:
-            _currentIndex == index ? FontWeight.bold : FontWeight.normal,
-        textColor: _currentIndex == index ? Colors.black : Colors.grey,
-        textSize: Config.fontSize['title'],
-      ),
-    );
-  }
-
-  Widget _buildContent(BuildContext context) {
-    switch (_currentIndex) {
-      case 0:
-        return const CommunityPage();
-      case 1:
-        return _buildHomeContent(context);
-      case 2:
-        return const PortfolioPage();
-      default:
-        return _buildHomeContent(context);
-    }
   }
 
   Widget _buildHomeContent(BuildContext context) {
@@ -201,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                     crossAxisCount: 3,
                     crossAxisSpacing: 12.w,
                     mainAxisExtent: 125.w,
-                    mainAxisSpacing: 19.w,
+                    mainAxisSpacing: 10.w,
                   ),
                   // shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),

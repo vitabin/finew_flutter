@@ -52,6 +52,9 @@ class MeditationSvgAssets {
     AssetName.chart: "assets/icons/chart.svg",
     AssetName.discover: "assets/icons/discover.svg",
     AssetName.profile: "assets/icons/profile.svg",
+    AssetName.menu: "assets/icons/menu.svg",
+    AssetName.user: "assets/icons/user.svg",
+    AssetName.home: "assets/icons/home.svg",
   };
 }
 
@@ -67,5 +70,8 @@ enum AssetName {
   heart,
   chart,
   discover,
-  profile
+  profile,
+  menu,
+  home,
+  user,
 }
