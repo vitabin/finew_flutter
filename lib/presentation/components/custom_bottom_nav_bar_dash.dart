@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../icons/icons.dart';
-import '../widgets/svg_asset.dart';
+import 'svg_asset.dart';
 
 class CustomBottomNavBarDash extends StatefulWidget {
   final int defaultSelectedIndex;

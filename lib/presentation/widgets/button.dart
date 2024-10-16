@@ -98,7 +98,13 @@ class LikeButtonState extends State<LikeButton> {
           children: [
             _isLiked ? CustomIcons.liked : CustomIcons.unLiked,
             const SizedBox(width: 5),
-            Utils.buildText('좋아요', textSize: 15),
+            const Text(
+              '좋아요',
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
           ],
         ),
       ),
@@ -124,7 +130,13 @@ class BookmarkButtonState extends State<BookmarkButton> {
           children: [
             _isBooked ? CustomIcons.bookmarked : CustomIcons.unBookmarked,
             const SizedBox(width: 5),
-            Utils.buildText('북마크', textSize: 15),
+            const Text(
+              '북마크',
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
           ],
         ),
       ),
@@ -286,7 +298,13 @@ class CommentButtonState extends State<CommentButton> {
         children: [
           CustomIcons.comment,
           const SizedBox(width: 5),
-          Utils.buildText('댓글', textSize: 15),
+          const Text(
+            '댓글',
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
         ],
       ),
     );

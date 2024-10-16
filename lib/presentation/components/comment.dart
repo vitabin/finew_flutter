@@ -40,7 +40,7 @@ class CommentBuilder {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          avatar(userProfileImage),
+          avatar(imgUrl: userProfileImage),
           const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../icons/icons.dart';
-import '../widgets/svg_asset.dart';
+import 'svg_asset.dart';
 
 class HomeCategoryGrid extends StatelessWidget {
   final String? title;
@@ -50,27 +50,27 @@ class HomeCategoryGrid extends StatelessWidget {
         child: Stack(
           children: [
             SizedBox(
-              height: 125.w,
-              width: 150.w,
+              height: 125.h,
+              width: 125.w,
             ),
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: SizedBox(
-                height: 125.w,
-                width: 150.w,
+                height: 125.h,
+                width: 125.w,
                 child: Stack(
                   children: [
                     SizedBox(
-                      height: 125.w,
-                      width: 150.w,
+                      height: 125.h,
+                      width: 125.w,
                       child: const SvgAsset(
                         assetName: AssetName.vectorSmallBottom,
                       ),
                     ),
                     SizedBox(
                       child: SvgAsset(
-                        height: 125.w,
-                        width: 150.w,
+                        height: 125.h,
+                        width: 125.w,
                         fit: BoxFit.fitHeight,
                         assetName: AssetName.vectorSmallTop,
                       ),
@@ -80,8 +80,8 @@ class HomeCategoryGrid extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 125.w,
-              width: 150.w,
+              height: 125.h,
+              width: 125.w,
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 20),

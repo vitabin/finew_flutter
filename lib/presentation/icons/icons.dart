@@ -55,6 +55,9 @@ class MeditationSvgAssets {
     AssetName.menu: "assets/icons/menu.svg",
     AssetName.user: "assets/icons/user.svg",
     AssetName.home: "assets/icons/home.svg",
+    AssetName.plus: "assets/icons/plus.svg",
+    AssetName.bookmark: "assets/icons/bookmark.svg",
+    AssetName.list: "assets/icons/list.svg",
   };
 }
 
@@ -74,4 +77,7 @@ enum AssetName {
   menu,
   home,
   user,
+  list,
+  bookmark,
+  plus,
 }

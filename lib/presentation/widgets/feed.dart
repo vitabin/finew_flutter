@@ -1,15 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-Widget avatar(String imgUrl) {
-  if (imgUrl == '') {
-    return const DecoratedBox(
-      decoration: BoxDecoration(
+Widget avatar({String? imgUrl, double? size}) {
+  if (imgUrl == null) {
+    return DecoratedBox(
+      decoration: const BoxDecoration(
         color: Colors.grey,
         shape: BoxShape.circle,
       ),
       child: Icon(
-        size: 40,
+        size: size ?? 40,
         Icons.person,
         color: Colors.white,
       ),
@@ -20,8 +20,8 @@ Widget avatar(String imgUrl) {
     decoration: const BoxDecoration(shape: BoxShape.circle),
     child: CachedNetworkImage(
       imageUrl: imgUrl,
-      width: 40,
-      height: 40,
+      width: size ?? 40,
+      height: size ?? 40,
     ),
   );
 }

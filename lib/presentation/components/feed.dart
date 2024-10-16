@@ -10,6 +10,7 @@ import '../../domain/entities/comment.dart';
 import 'buttons.dart';
 
 class FeedBuilder {
+  final BuildContext buildContext;
   late final double id;
   late final String nickName;
   late final String createdAt;
@@ -24,6 +25,10 @@ class FeedBuilder {
   late final String? title;
   late final String? context;
   late final String? category;
+
+  FeedBuilder(
+    this.buildContext,
+  );
 
   void setFeed(Feed feed) {
     id = feed.id;
@@ -46,17 +51,20 @@ class FeedBuilder {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        avatar(userProfileImage),
+        avatar(imgUrl: userProfileImage),
         const SizedBox(width: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Utils.buildText(
+            Text(
               nickName,
-              textSize: Config.fontSize['context'],
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+              ),
             ),
             Utils.buildText(
-              createdAt,
+              createdAt.replaceAll('-', '.'),
               textColor: Colors.grey[600],
             ),
           ],
@@ -81,16 +89,16 @@ class FeedBuilder {
         horizontal: 1,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(buildContext).cardTheme.color,
         borderRadius: BorderRadius.circular(5),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 3,
-            offset: const Offset(0, 3),
-          ),
-        ],
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Colors.grey.withOpacity(0.1),
+        //     spreadRadius: 1,
+        //     blurRadius: 3,
+        //     offset: const Offset(0, 3),
+        //   ),
+        // ],
       ),
       child: Padding(
         padding: const EdgeInsets.all(10),
@@ -118,7 +126,6 @@ class FeedBuilder {
                   style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w400,
-                    color: Colors.black,
                   ),
                 ),
               ),

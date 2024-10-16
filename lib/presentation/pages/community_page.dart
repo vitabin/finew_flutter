@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/comment.dart';
 import '../../domain/entities/feed.dart';
+import '../components/custom_bottom_nav_bar_dash.dart';
 import '../components/feed.dart';
+import '../icons/icons.dart';
 
 Post dummyPost = Post(
   id: 1,
@@ -31,33 +33,41 @@ class _CommunityPageState extends State<CommunityPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        scrolledUnderElevation: 0,
-        backgroundColor: Colors.white,
-        title: const Text(
-          '커뮤니티',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w400,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50),
+        child: AppBar(
+          scrolledUnderElevation: 0,
+          title: const Text(
+            '커뮤니티',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w400,
+            ),
           ),
         ),
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-        ),
-        child: ListView.builder(
-          itemCount: 4,
-          itemBuilder: (context, index) {
-            return _buildFeedItem();
-          },
-        ),
+      body: ListView.builder(
+        itemCount: 4,
+        itemBuilder: (context, index) {
+          return _buildFeedItem(context);
+        },
+      ),
+      bottomNavigationBar: CustomBottomNavBarDash(
+        onChange: (index) {
+          setState(() {});
+        },
+        defaultSelectedIndex: 0,
+        svgName: const [
+          AssetName.list,
+          AssetName.plus,
+          AssetName.bookmark,
+        ],
       ),
     );
   }
 
-  Widget _buildFeedItem() {
-    FeedBuilder builder = FeedBuilder();
+  Widget _buildFeedItem(BuildContext context) {
+    FeedBuilder builder = FeedBuilder(context);
     builder.setFeed(dummyPost);
     builder.setPost(dummyPost);
     builder.build();
