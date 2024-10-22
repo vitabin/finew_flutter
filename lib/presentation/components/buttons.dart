@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import '../widgets/button.dart';
 
 class FollowButton extends StatefulWidget {
-  const FollowButton({super.key});
+  const FollowButton({super.key, required this.height, required this.width, this.letterSpace});
+  final double width;
+  final double height;
+  final double? letterSpace;
 
   @override
   FollowButtonState createState() => FollowButtonState();

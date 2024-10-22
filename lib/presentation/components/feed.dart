@@ -8,29 +8,29 @@ import '../widgets/button.dart';
 import '../widgets/feed.dart';
 import '../../domain/entities/comment.dart';
 import 'buttons.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FeedBuilder {
   final BuildContext buildContext;
-  late final double id;
-  late final String nickName;
-  late final String createdAt;
-  late final String updatedAt;
-  late final String userId;
-  late final String userProfileImage;
-  late final bool userFollowStatus;
-  late final bool userLikeStatus;
-  late final bool bookmarkStatus;
-  late final List<Comment>? comments;
+  late double id;
+  late String nickName;
+  late String createdAt;
+  late String updatedAt;
+  late String userId;
+  late String userProfileImage;
+  late bool userFollowStatus;
+  late bool userLikeStatus;
+  late bool bookmarkStatus;
+  late List<Comment>? comments;
 
-  late final String? title;
-  late final String? context;
-  late final String? category;
+  late String? title;
+  late String? context;
+  late String? category;
 
-  FeedBuilder(
-    this.buildContext,
-  );
+  FeedBuilder(this.buildContext);
 
-  void setFeed(Feed feed) {
+  // 메서드 체이닝을 위해 객체 자신을 반환
+  FeedBuilder setFeed(Feed feed) {
     id = feed.id;
     createdAt = feed.createdAt;
     nickName = feed.nickName;
@@ -39,12 +39,14 @@ class FeedBuilder {
     userFollowStatus = feed.userFollowStatus;
     userLikeStatus = feed.userLikeStatus;
     bookmarkStatus = feed.bookmarkStatus;
+    return this;
   }
 
-  void setPost(Post post) {
+  FeedBuilder setPost(Post post) {
     title = post.title;
     context = post.context;
     category = post.category;
+    return this;
   }
 
   Widget setHeader() {
@@ -72,7 +74,10 @@ class FeedBuilder {
         const SizedBox(
           width: 10,
         ),
-        const FollowButton(),
+        FollowButton(
+          height: 20.h,
+          width: 36.w,
+        ),
       ],
     );
   }
@@ -91,14 +96,6 @@ class FeedBuilder {
       decoration: BoxDecoration(
         color: Theme.of(buildContext).cardTheme.color,
         borderRadius: BorderRadius.circular(5),
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: Colors.grey.withOpacity(0.1),
-        //     spreadRadius: 1,
-        //     blurRadius: 3,
-        //     offset: const Offset(0, 3),
-        //   ),
-        // ],
       ),
       child: Padding(
         padding: const EdgeInsets.all(10),

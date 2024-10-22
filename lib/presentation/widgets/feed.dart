@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 Widget avatar({String? imgUrl, double? size}) {
-  if (imgUrl == null) {
+  if (imgUrl == null || imgUrl == '') {
     return DecoratedBox(
       decoration: const BoxDecoration(
         color: Colors.grey,

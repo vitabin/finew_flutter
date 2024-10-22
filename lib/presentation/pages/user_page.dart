@@ -1,6 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../domain/repositories/text_repository.dart';
+import '../components/buttons.dart';
+import '../components/custom_top_nav_bar_dash.dart';
 import '../widgets/feed.dart';
 
 class UserPage extends StatefulWidget {
@@ -13,6 +18,15 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
+  final _pageController = PageController();
+  int _pageIdx = 0;
+
+  void _onPageChanged(int index) {
+    setState(() {
+      _pageIdx = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -21,7 +35,7 @@ class _UserPageState extends State<UserPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               avatar(size: 80),
               Padding(
@@ -36,19 +50,27 @@ class _UserPageState extends State<UserPage> {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.blue,
-                      ),
-                      child: SizedBox(
-                        width: 200.w,
-                        height: 50,
-                      ),
+                    FollowButton(
+                      height: 25.h,
+                      width: 250.w,
+                      letterSpace: 40.w,
                     ),
                   ],
                 ),
               ),
+            ],
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          CustomTopNavBarDash(
+            onChange: (index) {
+              _onPageChanged(index);
+            },
+            defaultSelectedIndex: _pageIdx,
+            textName: const [
+              TextName.post,
+              TextName.bookmark,
             ],
           ),
         ],

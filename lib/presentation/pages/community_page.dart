@@ -68,9 +68,7 @@ class _CommunityPageState extends State<CommunityPage> {
 
   Widget _buildFeedItem(BuildContext context) {
     FeedBuilder builder = FeedBuilder(context);
-    builder.setFeed(dummyPost);
-    builder.setPost(dummyPost);
-    builder.build();
+    builder.setFeed(dummyPost).setPost(dummyPost).build();
 
     return builder.build();
   }

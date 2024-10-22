@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../config/themes/app_theme.dart';
 import '../icons/icons.dart';
 import '../../core/utils/helpers.dart';
@@ -63,17 +64,26 @@ class FollowButtonState extends State<FollowButton> {
           color: _isFollowing ? Colors.grey[800] : Colors.blue,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (_isFollowing)
-              const Icon(Icons.check, color: Colors.white, size: 16),
-            if (_isFollowing) const SizedBox(width: 2),
-            Text(
-              _isFollowing ? '팔로잉' : '팔로우',
-              style: const TextStyle(color: Colors.white, fontSize: 12),
-            ),
-          ],
+        child: SizedBox(
+          width: widget.width,
+          height: widget.height,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (_isFollowing)
+                const Icon(Icons.check, color: Colors.white, size: 16),
+              if (_isFollowing) const SizedBox(width: 2),
+              Text(
+                _isFollowing ? '팔로잉' : '팔로우',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12.sp,
+                  letterSpacing: widget.letterSpace ?? 0,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

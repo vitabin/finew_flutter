@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../components/buttons.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PerformanceItemCard extends StatelessWidget {
   final String nickName;
@@ -45,9 +46,10 @@ class PerformanceItemCard extends StatelessWidget {
             const SizedBox(height: 16),
             SizedBox(height: 150, child: chart),
             const SizedBox(height: 16),
-            Text('총 수익률 $totalReturn%',
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            Text(
+              '총 수익률 $totalReturn%',
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
             const SizedBox(height: 16),
             buildActionButtons(),
           ],
@@ -68,14 +70,21 @@ class PerformanceItemCard extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Nick Name',
-                style: TextStyle(fontWeight: FontWeight.bold),),
-            Text('Post At',
-                style: TextStyle(color: Colors.grey[600], fontSize: 12),),
+            const Text(
+              'Nick Name',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text(
+              'Post At',
+              style: TextStyle(color: Colors.grey[600], fontSize: 12),
+            ),
           ],
         ),
         const SizedBox(width: 10),
-        const FollowButton(),
+        FollowButton(
+          height: 30.h,
+          width: 50.w,
+        ),
       ],
     );
   }
