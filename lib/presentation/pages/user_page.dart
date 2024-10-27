@@ -3,10 +3,30 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../domain/entities/comment.dart';
+import '../../domain/entities/feed.dart';
 import '../../domain/repositories/text_repository.dart';
 import '../components/buttons.dart';
 import '../components/custom_top_nav_bar_dash.dart';
+import '../components/feed.dart';
 import '../widgets/feed.dart';
+
+Post dummyPost = Post(
+  id: 1,
+  createdAt: '2024-09-11',
+  updatedAt: '2024-09-09',
+  userId: '1',
+  userProfileImage: '',
+  nickName: 'vitabin',
+  comments: <Comment>[], // 빈 리스트를 명시적으로 변환
+  userFollowStatus: false,
+  userLikeStatus: false,
+  bookmarkStatus: false,
+  title: '이거 이렇게하는거 맞나요',
+  context:
+      '가나다라마바사asdffasdfxzcvcxzvasfasdfcvzcxvadfhadgfasfvxcb cnsfgsadfvsdbsdgasdfvs adfasdf savcnxz,mvnfddsjoipafmavsfpjospifjqwlnfxcz;vaopfidnfmsnvapdighso[fndfmqnwdfidshjvzoxjvlfasnfdsapfhdslkfj sdakljfjsadopfjsd]ncxvm,xnpofasojfwdmfnwdpofnvkmczxnvpoafguyhwquoirwefknmfgvbipadfghfpowdjrfqwklfnas;kjvxzchopcvsdjafdlmvn  xzcklvzxcgbcvipasdhfjlkasdfjmvajkldfghadpsfasd',
+  category: '질문',
+);
 
 class UserPage extends StatefulWidget {
   final String userId;
@@ -25,6 +45,34 @@ class _UserPageState extends State<UserPage> {
     setState(() {
       _pageIdx = index;
     });
+  }
+
+  Widget _buildContents() {
+    return _pageIdx == 0
+        ? ListView.builder(
+            itemCount: 4,
+            itemBuilder: (context, index) {
+              return _buildFeedItem(context);
+            },
+          )
+        : ListView.builder(
+            itemCount: 4,
+            itemBuilder: (context, index) {
+              return _buildFeedItem(context);
+            },
+          );
+  }
+
+  Widget _buildFeedItem(BuildContext context) {
+    FeedBuilder builder = FeedBuilder(context);
+    builder.setFeed(dummyPost).setPost(dummyPost).build();
+
+    return _pageIdx == 0
+        ? builder.build()
+        : DecoratedBox(
+            decoration: BoxDecoration(color: Colors.black),
+            child: SizedBox(width: 100, height: 100),
+          );
   }
 
   @override
@@ -72,6 +120,9 @@ class _UserPageState extends State<UserPage> {
               TextName.post,
               TextName.bookmark,
             ],
+          ),
+          Expanded(
+            child: _buildContents(),
           ),
         ],
       ),

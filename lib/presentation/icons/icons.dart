@@ -58,6 +58,8 @@ class MeditationSvgAssets {
     AssetName.plus: "assets/icons/plus.svg",
     AssetName.bookmark: "assets/icons/bookmark.svg",
     AssetName.list: "assets/icons/list.svg",
+    AssetName.moon: "assets/icons/moon.svg",
+    AssetName.userXmark: "assets/icons/user-xmark.svg",
   };
 }
 
@@ -80,4 +82,6 @@ enum AssetName {
   list,
   bookmark,
   plus,
+  moon,
+  userXmark,
 }

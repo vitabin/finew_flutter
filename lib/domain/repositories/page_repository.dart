@@ -5,6 +5,8 @@ import '../../presentation/pages/community_page.dart';
 import '../../presentation/pages/dictionary_page.dart';
 import '../../presentation/pages/home_page.dart';
 import '../../presentation/pages/portfolio_page.dart';
+import '../../presentation/pages/setting_page.dart';
+import '../../presentation/pages/user_page.dart';
 
 class PageRepository {
   static final PageRepository _instance = PageRepository._internal();
@@ -21,6 +23,8 @@ class PageRepository {
     PageName.dictionary: const DictionaryPage(),
     PageName.community: const CommunityPage(),
     PageName.portfolio: const PortfolioPage(),
+    PageName.user: const UserPage('asdf'),
+    PageName.setting: const SettingPage(),
   };
 }
 
@@ -30,4 +34,6 @@ enum PageName {
   comment,
   community,
   portfolio,
+  user,
+  setting,
 }
