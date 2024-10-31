@@ -32,20 +32,24 @@ class _SettingPageState extends State<SettingPage> {
     );
   }
 
+  void _setNotificationState() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            const SetNotification(scopes: ['전체 허용', '전체 차단', '팔로워만 허용']),
+      ),
+    );
+  }
+
   Widget _buildItem(Function onTap, Size screenSize, Widget child) {
     return InkWell(
       onTap: () => onTap(),
       borderRadius: BorderRadius.circular(10),
       child: SizedBox(
         width: screenSize.width,
-        height: 40,
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 10.w,
-            vertical: 5.h,
-          ),
-          child: child,
-        ),
+        height: 40.h,
+        child: child,
       ),
     );
   }
@@ -88,41 +92,57 @@ class _SettingPageState extends State<SettingPage> {
               ),
             ],
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    SvgPicture.asset(
-                      MeditationSvgAssets().assets[AssetName.moon]!,
-                      color: MyApp.themeNotifier.value == ThemeMode.light
-                          ? Colors.black
-                          : Colors.yellow,
-                      width: 30.w,
-                      height: 30.h,
+          SizedBox(height: 10.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    MeditationSvgAssets().assets[AssetName.moon]!,
+                    color: MyApp.themeNotifier.value == ThemeMode.light
+                        ? Colors.black
+                        : Colors.yellow,
+                    width: 30.w,
+                    height: 30.h,
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Text(
+                    '다크 모드',
+                    style: TextStyle(
+                      fontSize: 20.sp,
                     ),
-                    SizedBox(
-                      width: 5.w,
-                    ),
-                    Text(
-                      '다크모드',
-                      style: TextStyle(
-                        fontSize: 20.sp,
-                      ),
-                    ),
-                  ],
+                  ),
+                ],
+              ),
+              GestureDetector(
+                onTap: () {
+                  _toggleTheme();
+                },
+                child: Icon(
+                  MyApp.themeNotifier.value == ThemeMode.light
+                      ? Icons.toggle_off_outlined
+                      : Icons.toggle_on_outlined,
+                  size: 40.sp,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    _toggleTheme();
-                  },
-                  child: Icon(
-                    MyApp.themeNotifier.value == ThemeMode.light
-                        ? Icons.toggle_off_outlined
-                        : Icons.toggle_on_outlined,
-                    size: 40.sp,
+              ),
+            ],
+          ),
+          _buildItem(
+            _setNotificationState,
+            screenSize,
+            Row(
+              children: [
+                Icon(Icons.notifications_none, size: 30.sp),
+                SizedBox(
+                  width: 5.w,
+                ),
+                Text(
+                  '알림 설정',
+                  style: TextStyle(
+                    fontSize: 20.sp,
                   ),
                 ),
               ],
@@ -153,6 +173,67 @@ class _SettingPageState extends State<SettingPage> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class SetNotification extends StatefulWidget {
+  const SetNotification({super.key, required this.scopes});
+  final List<String> scopes;
+
+  @override
+  _SetNotificationState createState() => _SetNotificationState();
+}
+
+class _SetNotificationState extends State<SetNotification> {
+  int currentIdx = 0;
+
+  void _setScope(idx) {
+    setState(() {
+      currentIdx = idx;
+      // TODO 서버로 알림 설정 보내기
+    });
+  }
+
+  Widget _buildItem(String scope, int idx, BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+
+    return InkWell(
+      onTap: () => _setScope(idx),
+      child: Container(
+        width: screenSize.width,
+        height: 45.h,
+        padding: EdgeInsets.all(10.sp),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              scope,
+              style: TextStyle(
+                fontSize: 20.sp,
+              ),
+            ),
+            currentIdx == idx ? const Icon(Icons.check) : const Icon(null),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> items = [];
+    for (var i = 0; i < widget.scopes.length; i++) {
+      items.add(_buildItem(widget.scopes[i], i, context));
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('알림 설정'),
+      ),
+      body: Column(
+        children: items,
       ),
     );
   }

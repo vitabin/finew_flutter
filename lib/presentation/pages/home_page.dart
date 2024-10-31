@@ -61,12 +61,6 @@ class _HomePageState extends State<HomePage> {
                 icon: const Icon(Icons.notifications_none),
                 onPressed: () {},
               ),
-              IconButton(
-                icon: const Icon(Icons.menu),
-                onPressed: () {
-                  _toggleTheme();
-                },
-              ),
             ],
           ),
         ),
