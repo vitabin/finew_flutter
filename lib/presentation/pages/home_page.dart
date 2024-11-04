@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/app.dart';
+import '../../domain/entities/feed.dart';
 import '../../domain/repositories/page_repository.dart';
 import '../components/custom_bottom_nav_bar_dash.dart';
 import '../components/home_category_grid.dart';
@@ -10,6 +11,7 @@ import '../components/svg_asset.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'community_page.dart';
+import 'post_detail_page.dart';
 import 'setting_page.dart';
 import 'user_page.dart';
 
@@ -26,19 +28,6 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _refresh() async {
     await Future.delayed(const Duration(seconds: 2));
-  }
-
-  void _toggleTheme() async {
-    setState(() {
-      MyApp.themeNotifier.value = MyApp.themeNotifier.value == ThemeMode.light
-          ? ThemeMode.dark
-          : ThemeMode.light;
-    });
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(
-      'isDarkMode',
-      MyApp.themeNotifier.value == ThemeMode.dark,
-    );
   }
 
   void _onPageChanged(int index) {
@@ -177,7 +166,16 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           HomeCategoryGrid(
-                            onTap: () {},
+                            onTap: () {
+                              setState(() {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PostDetailPage(post: Post.dummyPost),
+                                  ),
+                                );
+                              });
+                            },
                             title: "퀴즈",
                             icon: SvgAsset(
                               assetName: AssetName.tape,

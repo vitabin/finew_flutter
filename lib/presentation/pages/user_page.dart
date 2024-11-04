@@ -18,7 +18,6 @@ Post dummyPost = Post(
   userId: '1',
   userProfileImage: '',
   nickName: 'vitabin',
-  comments: <Comment>[], // 빈 리스트를 명시적으로 변환
   userFollowStatus: false,
   userLikeStatus: false,
   bookmarkStatus: false,
@@ -51,6 +50,7 @@ class _UserPageState extends State<UserPage> {
     return _pageIdx == 0
         ? ListView.builder(
             itemCount: 4,
+            itemExtent: 240,
             itemBuilder: (context, index) {
               return _buildFeedItem(context);
             },
@@ -64,7 +64,7 @@ class _UserPageState extends State<UserPage> {
   }
 
   Widget _buildFeedItem(BuildContext context) {
-    FeedBuilder builder = FeedBuilder(context);
+    FeedBuilder builder = FeedBuilder(buildContext: context);
     builder.setFeed(dummyPost).setPost(dummyPost).build();
 
     return _pageIdx == 0

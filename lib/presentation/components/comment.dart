@@ -11,13 +11,13 @@ class CommentBuilder {
   late final String userProfileImage;
   late final String nickName;
 
-  final Size screenSize;
+  final BuildContext context;
 
   CommentBuilder({
-    required this.screenSize,
+    required this.context,
   });
 
-  void setComment(Comment comment) {
+  CommentBuilder setComment(Comment comment) {
     id = comment.id;
     content = comment.content;
     createdAt = comment.createdAt;
@@ -25,13 +25,15 @@ class CommentBuilder {
     userId = comment.userId;
     userProfileImage = comment.userProfileImage;
     nickName = comment.nickName;
+
+    return this;
   }
 
   Widget _buildComment() {
+    Size screenSize = MediaQuery.of(context).size;
+
     return Container(
-      width: screenSize.width,
       decoration: const BoxDecoration(
-        color: Colors.white,
         border: Border(
           top: BorderSide(color: Color(0x009395a0)),
           bottom: BorderSide(color: Color(0x009395a0)),

@@ -4,6 +4,7 @@ import '../../domain/entities/feed.dart';
 import '../components/custom_bottom_nav_bar_dash.dart';
 import '../components/feed.dart';
 import '../icons/icons.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Post dummyPost = Post(
   id: 1,
@@ -12,7 +13,6 @@ Post dummyPost = Post(
   userId: '1',
   userProfileImage: '',
   nickName: 'vitabin',
-  comments: <Comment>[], // 빈 리스트를 명시적으로 변환
   userFollowStatus: false,
   userLikeStatus: false,
   bookmarkStatus: false,
@@ -32,6 +32,8 @@ class CommunityPage extends StatefulWidget {
 class _CommunityPageState extends State<CommunityPage> {
   @override
   Widget build(BuildContext context) {
+    FeedBuilder builder = FeedBuilder(buildContext: context);
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
@@ -48,8 +50,11 @@ class _CommunityPageState extends State<CommunityPage> {
       ),
       body: ListView.builder(
         itemCount: 4,
+        itemExtent: 240.h,
         itemBuilder: (context, index) {
-          return _buildFeedItem(context);
+          return IntrinsicHeight(
+            child: builder.setFeed(dummyPost).setPost(dummyPost).build(),
+          );
         },
       ),
       bottomNavigationBar: CustomBottomNavBarDash(
@@ -64,12 +69,5 @@ class _CommunityPageState extends State<CommunityPage> {
         ],
       ),
     );
-  }
-
-  Widget _buildFeedItem(BuildContext context) {
-    FeedBuilder builder = FeedBuilder(context);
-    builder.setFeed(dummyPost).setPost(dummyPost).build();
-
-    return builder.build();
   }
 }

@@ -6,13 +6,13 @@ import '../../core/utils/helpers.dart';
 import '../components/buttons.dart';
 import '../pages/comment_page.dart';
 
-Widget feedInteractionBar() {
-  return const Row(
+Widget feedInteractionBar(bool isDetail) {
+  return Row(
     mainAxisAlignment: MainAxisAlignment.spaceAround,
     children: [
-      LikeButton(),
-      CommentButton(),
-      BookmarkButton(),
+      const LikeButton(),
+      isDetail ? const SizedBox.shrink() : const CommentButton(),
+      const BookmarkButton(),
     ],
   );
 }

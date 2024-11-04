@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../data/models/Top_keyword.dart';
+import '../../domain/entities/Top_keyword.dart';
 
 // ignore: must_be_immutable
 class TopKeywordCard extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../data/models/books.dart';
+import '../../domain/entities/books.dart';
 
 class RecommendBook extends StatefulWidget {
   const RecommendBook(this.data, {super.key});

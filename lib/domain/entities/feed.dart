@@ -7,7 +7,6 @@ class Feed {
   late final String userId;
   late final String userProfileImage;
   late final String nickName;
-  late final List<Comment>? comments;
   late final bool userFollowStatus;
   late final bool userLikeStatus;
   late final bool bookmarkStatus;
@@ -19,7 +18,6 @@ class Feed {
     required this.userId,
     required this.userProfileImage,
     required this.nickName,
-    this.comments,
     required this.userFollowStatus,
     required this.userLikeStatus,
     required this.bookmarkStatus,
@@ -38,7 +36,6 @@ class Post extends Feed {
     required super.userId,
     required super.userProfileImage,
     required super.nickName,
-    super.comments,
     required super.userFollowStatus,
     required super.userLikeStatus,
     required super.bookmarkStatus,
@@ -46,6 +43,22 @@ class Post extends Feed {
     required this.context,
     required this.category,
   });
+
+  static Post dummyPost = Post(
+    id: 1,
+    createdAt: '2024-09-11',
+    updatedAt: '2024-09-09',
+    userId: '1',
+    userProfileImage: '',
+    nickName: 'vitabin',
+    userFollowStatus: false,
+    userLikeStatus: false,
+    bookmarkStatus: false,
+    title: '이거 이렇게하는거 맞나요',
+    context:
+        '가나다라마바사asdffasdfxzcvcxzvasfasdfcvzcxvadfhadgfasfvxcb cnsfgsadfvsdbsdgasdfvs adfasdf savcnxz,mvnfddsjoipafmavsfpjospifjqwlnfxcz;vaopfidnfmsnvapdighso[fndfmqnwdfidshjvzoxjvlfasnfdsapfhdslkfj sdakljfjsadopfjsd]ncxvm,xnpofasojfwdmfnwdpofnvkmczxnvpoafguyhwquoirwefknmfgvbipadfghfpowdjrfqwklfnas;kjvxzchopcvsdjafdlmvn  xzcklvzxcgbcvipasdhfjlkasdfjmvajkldfghadpsfasd xzcklvzxcgbcvipasdhfjlkasdfjmvajkldfghadpsfasd xzcklvzxcgbcvipasdhfjlkasdfjmvajkldfghadpsfasd',
+    category: '질문',
+  );
 }
 
 class Portfolio extends Feed {
@@ -61,7 +74,6 @@ class Portfolio extends Feed {
     required super.userId,
     required super.userProfileImage,
     required super.nickName,
-    super.comments,
     required super.userFollowStatus,
     required super.userLikeStatus,
     required super.bookmarkStatus,

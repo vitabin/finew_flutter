@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../domain/entities/comment.dart';
+import '../../domain/entities/feed.dart';
 import '../components/comment.dart';
+import '../components/feed.dart';
+
+String id = 'asdf';
 
 List<Comment> comment = [
   Comment(
     id: 1,
     content:
-        'fksldjflasjfdoasjflasfndlsfjdslofjdsafjasdfasdfasdfasdfasdfsdafsadzxcvcxzfsdafsadvxczvasffsa',
+        'fksldjflasjfdoasjflasfndlsfjdslofjdsafjasdfasdfasdfasdfasdfsdafsadzxcvcxzfsdafsadvxczvasffsafksldjflasjfdoasjflasfndlsfjdslofjdsafjasdfasdfasdfasdfasdfsdafsadzxcvcxzfsdafsadvxczvasffsafksldjflasjfdoasjflasfndlsfjdslofjdsafjasdfasdfasdfasdfasdfsdafsadzxcvcxzfsdafsadvxczvasffsafksldjflasjfdoasjflasfndlsfjdslofjdsafjasdfasdfasdfasdfasdfsdafsadzxcvcxzfsdafsadvxczvasffsafksldjflasjfdoasjflasfndlsfjdslofjdsafjasdfasdfasdfasdfasdfsdafsadzxcvcxzfsdafsadvxczvasffsafksldjflasjfdoasjflasfndlsfjdslofjdsafjasdfasdfasdfasdfasdfsdafsadzxcvcxzfsdafsadvxczvasffsafksldjflasjfdoasjflasfndlsfjdslofjdsafjasdfasdfasdfasdfasdfsdafsadzxcvcxzfsdafsadvxczvasffsafksldjflasjfdoasjflasfndlsfjdslofjdsafjasdfasdfasdfasdfasdfsdafsadzxcvcxzfsdafsadvxczvasffsafksldjflasjfdoasjflasfndlsfjdslofjdsafjasdfasdfasdfasdfasdfsdafsadzxcvcxzfsdafsadvxczvasffsafksldjflasjfdoasjflasfndlsfjdslofjdsafjasdfasdfasdfasdfasdfsdafsadzxcvcxzfsdafsadvxczvasffsafksldjflasjfdoasjflasfndlsfjdslofjdsafjasdfasdfasdfasdfasdfsdafsadzxcvcxzfsdafsadvxczvasffsafksldjflasjfdoasjflasfndlsfjdslofjdsafjasdfasdfasdfasdfasdfsdafsadzxcvcxzfsdafsadvxczvasffsafksldjflasjfdoasjflasfndlsfjdslofjdsafjasdfasdfasdfasdfasdfsdafsadzxcvcxzfsdafsadvxczvasffsafksldjflasjfdoasjflasfndlsfjdslofjdsafjasdfasdfasdfasdfasdfsdafsadzxcvcxzfsdafsadvxczvasffsafksldjflasjfdoasjflasfndlsfjdslofjdsafjasdfasdfasdfasdfasdfsdafsadzxcvcxzfsdafsadvxczvasffsa',
     createdAt: '2024-09-11',
     updatedAt: '2024-09-09',
     userId: '1',
@@ -277,27 +282,44 @@ List<Comment> comment = [
   ),
 ];
 
-class CommentPage extends StatefulWidget {
-  const CommentPage({super.key});
+class PostDetailPage extends StatefulWidget {
+  final Post post;
+  const PostDetailPage({super.key, required this.post});
 
   @override
-  _CommentPageState createState() => _CommentPageState();
+  _PostDetailPageState createState() => _PostDetailPageState();
 }
 
-class _CommentPageState extends State<CommentPage> {
+class _PostDetailPageState extends State<PostDetailPage> {
+  Future<bool> _isMyPost() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(id) ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 5),
-        itemCount: comment.length,
-        itemBuilder: (context, index) {
-          CommentBuilder commentBuilder = CommentBuilder(
-            context: context,
-          );
-          commentBuilder.setComment(comment[index]);
-          return commentBuilder.build();
-        },
+    Widget post = FeedBuilder(buildContext: context, isDetail: true)
+        .setFeed(widget.post)
+        .setPost(widget.post)
+        .build();
+    List<Widget> comments = comment
+        .map(
+          (comment) =>
+              CommentBuilder(context: context).setComment(comment).build(),
+        )
+        .toList();
+
+    return Scaffold(
+      appBar: AppBar(
+        scrolledUnderElevation: 0,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            post,
+            ...comments,
+          ],
+        ),
       ),
     );
   }
