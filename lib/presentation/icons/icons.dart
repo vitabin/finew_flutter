@@ -28,6 +28,21 @@ class CustomIcons {
     size: Config.iconSize,
     color: Colors.yellow,
   );
+
+  static Icon flag = Icon(
+    Icons.flag_outlined,
+    size: Config.iconSize,
+  );
+
+  static Icon checkBox = Icon(
+    Icons.check_box_outline_blank,
+    size: Config.iconSize,
+  );
+
+  static Icon checkedBox = Icon(
+    Icons.check_box_outlined,
+    size: Config.iconSize,
+  );
 }
 
 class MeditationSvgAssets {

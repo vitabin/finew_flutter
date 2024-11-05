@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/comment.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../widgets/feed.dart';
 
 class CommentBuilder {
@@ -43,24 +44,24 @@ class CommentBuilder {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           avatar(imgUrl: userProfileImage),
-          const SizedBox(width: 10),
+          SizedBox(width: 10.w),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
                   DefaultTextStyle(
-                    style: const TextStyle(
-                      fontSize: 15,
+                    style: TextStyle(
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.w500,
                       color: Colors.black,
                     ),
                     child: Text(nickName),
                   ),
-                  const SizedBox(width: 5),
+                  SizedBox(width: 5.w),
                   DefaultTextStyle(
-                    style: const TextStyle(
-                      fontSize: 15,
+                    style: TextStyle(
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.w400,
                       color: Colors.grey,
                     ),
@@ -68,12 +69,12 @@ class CommentBuilder {
                   ),
                 ],
               ),
-              const SizedBox(height: 5),
+              SizedBox(height: 5.h),
               SizedBox(
                 width: screenSize.width - 100,
                 child: DefaultTextStyle(
-                  style: const TextStyle(
-                    fontSize: 15,
+                  style: TextStyle(
+                    fontSize: 15.sp,
                     fontWeight: FontWeight.w400,
                     color: Colors.black,
                   ),

@@ -7,14 +7,25 @@ import '../components/buttons.dart';
 import '../pages/comment_page.dart';
 
 Widget feedInteractionBar(bool isDetail) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
-    children: [
-      const LikeButton(),
-      isDetail ? const SizedBox.shrink() : const CommentButton(),
-      const BookmarkButton(),
-    ],
-  );
+  if (isDetail) {
+    return const Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        LikeButton(),
+        BookmarkButton(),
+        ReportButtons(),
+      ],
+    );
+  } else {
+    return const Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        LikeButton(),
+        CommentButton(),
+        BookmarkButton(),
+      ],
+    );
+  }
 }
 
 Widget moreButton(BuildContext context, Widget page) {
